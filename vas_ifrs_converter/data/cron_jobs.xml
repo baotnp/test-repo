@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <!-- Scheduled action for daily IFRS conversion check -->
+        <record id="ir_cron_vas_ifrs_conversion" model="ir.cron">
+            <field name="name">VAS to IFRS Daily Conversion Check</field>
+            <field name="model_id" ref="model_vas_ifrs_conversion_service"/>
+            <field name="state">code</field>
+            <field name="code">
+                # Check for any missed conversions from previous day
+                model.check_missed_conversions()
+            </field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+    </data>
+</odoo>

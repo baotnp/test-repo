@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vas_ifrs_mapping_manager,VAS IFRS Mapping Manager,model_vas_ifrs_mapping,account.group_account_manager,1,1,1,1
+access_vas_ifrs_mapping_user,VAS IFRS Mapping User,model_vas_ifrs_mapping,account.group_account_user,1,0,0,0
+access_vas_ifrs_conversion_service_manager,VAS IFRS Service Manager,model_vas_ifrs_conversion_service,account.group_account_manager,1,1,1,1
+access_vas_ifrs_conversion_service_user,VAS IFRS Service User,model_vas_ifrs_conversion_service,account.group_account_user,1,1,1,0
+access_vas_ifrs_conversion_wizard,VAS IFRS Wizard,model_vas_ifrs_conversion_wizard,account.group_account_user,1,1,1,1

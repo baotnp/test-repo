@@ -1,0 +1,108 @@
+<odoo>
+    <data>
+        <!-- IFRS Balance Sheet Report -->
+        <record id="ifrs_balance_sheet_report" model="ir.ui.view">
+            <field name="name">IFRS Balance Sheet</field>
+            <field name="model">account.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_generate_ifrs_balance_sheet" string="Generate IFRS Balance Sheet" type="object" class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Report Parameters">
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="company_id"/>
+                            </group>
+                            <group string="IFRS Options">
+                                <field name="include_comparison"/>
+                                <field name="show_vas_comparison"/>
+                                <field name="currency_display"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- IFRS Income Statement Report -->
+        <record id="ifrs_income_statement_report" model="ir.ui.view">
+            <field name="name">IFRS Income Statement</field>
+            <field name="model">account.report</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_generate_ifrs_income_statement" string="Generate IFRS Income Statement" type="object" class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Report Parameters">
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="company_id"/>
+                            </group>
+                            <group string="IFRS Options">
+                                <field name="include_comparison"/>
+                                <field name="show_vas_comparison"/>
+                                <field name="currency_display"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- IFRS Conversion Summary Dashboard -->
+        <record id="view_ifrs_conversion_dashboard" model="ir.ui.view">
+            <field name="name">IFRS Conversion Dashboard</field>
+            <field name="model">vas.ifrs.conversion.dashboard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>IFRS Conversion Dashboard</h1>
+                        </div>
+                        <group>
+                            <group string="Conversion Statistics">
+                                <field name="total_vas_entries"/>
+                                <field name="converted_entries"/>
+                                <field name="pending_conversion"/>
+                                <field name="conversion_rate" widget="percentage"/>
+                            </group>
+                            <group string="Period Information">
+                                <field name="last_conversion_date"/>
+                                <field name="next_batch_date"/>
+                                <field name="failed_conversions"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Recent Conversions">
+                                <field name="recent_conversions" nolabel="1">
+                                    <list>
+                                        <field name="vas_move_id"/>
+                                        <field name="ifrs_move_id"/>
+                                        <field name="conversion_date"/>
+                                        <field name="conversion_method"/>
+                                        <field name="status"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Failed Conversions">
+                                <field name="failed_conversions_detail" nolabel="1">
+                                    <list>
+                                        <field name="vas_move_id"/>
+                                        <field name="error_message"/>
+                                        <field name="retry_count"/>
+                                        <field name="last_attempt"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,79 @@
+<odoo>
+    <data noupdate="1">
+        <!-- Default Chart of Accounts for IFRS -->
+        <record id="ifrs_account_1000" model="account.account">
+            <field name="name">Cash and Cash Equivalents - IFRS</field>
+            <field name="code">1000.IFRS</field>
+            <field name="account_type">asset_current</field>
+            <field name="reconcile">True</field>
+        </record>
+
+        <record id="ifrs_account_1100" model="account.account">
+            <field name="name">Trade Receivables - IFRS</field>
+            <field name="code">1100.IFRS</field>
+            <field name="account_type">asset_receivable</field>
+            <field name="reconcile">True</field>
+        </record>
+
+        <record id="ifrs_account_1200" model="account.account">
+            <field name="name">Inventory - IFRS</field>
+            <field name="code">1200.IFRS</field>
+            <field name="account_type">asset_current</field>
+        </record>
+
+        <record id="ifrs_account_1500" model="account.account">
+            <field name="name">Property, Plant and Equipment - IFRS</field>
+            <field name="code">1500.IFRS</field>
+            <field name="account_type">asset_fixed</field>
+        </record>
+
+        <!-- Sample VAS to IFRS Mappings -->
+<!--        <record id="mapping_cash_vas_ifrs" model="vas.ifrs.mapping">-->
+<!--            <field name="name">Cash VAS to IFRS</field>-->
+<!--            <field name="vas_account_id" ref="account.cash"/>-->
+<!--            <field name="ifrs_account_id" ref="ifrs_account_1000"/>-->
+<!--            <field name="conversion_type">direct</field>-->
+<!--            <field name="conversion_factor">1.0</field>-->
+<!--            <field name="auto_convert">True</field>-->
+<!--        </record>-->
+
+<!--        <record id="mapping_receivables_vas_ifrs" model="vas.ifrs.mapping">-->
+<!--            <field name="name">Receivables VAS to IFRS</field>-->
+<!--            <field name="vas_account_id" ref="account.a_recv"/>-->
+<!--            <field name="ifrs_account_id" ref="ifrs_account_1100"/>-->
+<!--            <field name="conversion_type">direct</field>-->
+<!--            <field name="conversion_factor">1.0</field>-->
+<!--            <field name="auto_convert">True</field>-->
+<!--        </record>-->
+
+<!--        &lt;!&ndash; IFRS Journal &ndash;&gt;-->
+<!--        <record id="ifrs_journal" model="account.journal">-->
+<!--            <field name="name">IFRS Adjustments</field>-->
+<!--            <field name="code">IFRS</field>-->
+<!--            <field name="type">general</field>-->
+<!--            <field name="sequence">15</field>-->
+<!--            <field name="show_on_dashboard">True</field>-->
+<!--        </record>-->
+
+        <!-- Email Templates -->
+        <record id="email_template_ifrs_conversion_error" model="mail.template">
+            <field name="name">IFRS Conversion Error</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="subject">IFRS Conversion Error - ${object.name}</field>
+            <field name="body_html"><![CDATA[
+                <p>Dear Accounting Team,</p>
+                <p>An error occurred during IFRS conversion for journal entry <strong>${object.name}</strong>.</p>
+                <p><strong>Details:</strong></p>
+                <ul>
+                    <li>Journal Entry: ${object.name}</li>
+                    <li>Date: ${object.date}</li>
+                    <li>Amount: ${object.amount_total}</li>
+                    <li>Journal: ${object.journal_id.name}</li>
+                </ul>
+                <p>Please review and correct the mapping configuration.</p>
+                <p>Best regards,<br/>VAS-IFRS Conversion System</p>
+            ]]></field>
+            <field name="auto_delete">True</field>
+        </record>
+    </data>
+</odoo>

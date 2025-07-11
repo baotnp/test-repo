@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+        <!-- Extended Account Move Form View -->
+        <record id="view_account_move_form_ifrs" model="ir.ui.view">
+            <field name="name">account.move.form.ifrs</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="is_ifrs_move" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='ref']" position="after">
+                    <field name="ifrs_converted" invisible="is_ifrs_move"/>
+                    <field name="ifrs_move_id" invisible="is_ifrs_move or not ifrs_converted" readonly="1"/>
+                    <field name="vas_move_id" invisible="not is_ifrs_move" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="conversion_date" invisible="not ifrs_converted" readonly="1"/>
+                    <field name="conversion_method" invisible="not ifrs_converted" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Extended Account Move Tree View -->
+        <record id="view_account_move_tree_ifrs" model="ir.ui.view">
+            <field name="name">account.move.tree.ifrs</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="ifrs_converted" string="IFRS" widget="boolean_toggle" optional="show"/>
+                    <field name="is_ifrs_move" string="IFRS Entry" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- IFRS Moves Action -->
+        <record id="action_account_move_ifrs" model="ir.actions.act_window">
+            <field name="name">IFRS Journal Entries</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[('is_ifrs_move', '=', True)]</field>
+            <field name="context">{'default_is_ifrs_move': True}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No IFRS journal entries found
+                </p>
+                <p>
+                    IFRS journal entries are automatically created when VAS entries are converted.
+                </p>
+            </field>
+        </record>
+
+        <!-- VAS Moves Needing Conversion -->
+        <record id="action_account_move_vas_pending" model="ir.actions.act_window">
+            <field name="name">VAS Entries Pending IFRS Conversion</field>
+            <field name="res_model">account.move</field>
+            <field name="view_mode">list,form</field>
+            <field name="domain">[('is_ifrs_move', '=', False), ('ifrs_converted', '=', False), ('state', '=', 'posted')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    All VAS entries have been converted to IFRS
+                </p>
+                <p>
+                    This view shows VAS journal entries that haven't been converted to IFRS yet.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

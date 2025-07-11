@@ -1,0 +1,104 @@
+<odoo>
+    <data>
+        <!-- Batch Conversion Wizard Form -->
+        <record id="view_vas_ifrs_conversion_wizard_form" model="ir.ui.view">
+            <field name="name">vas.ifrs.conversion.wizard.form</field>
+            <field name="model">vas.ifrs.conversion.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_convert" string="Start Conversion" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>VAS to IFRS Batch Conversion</h1>
+                        </div>
+                        <group>
+                            <group string="Date Range">
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                            </group>
+                            <group string="Filters">
+                                <field name="journal_ids" widget="many2many_tags"/>
+                                <field name="partner_ids" widget="many2many_tags"/>
+                                <field name="conversion_mode"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Preview">
+                                <p>This wizard will convert VAS journal entries to IFRS format based on configured mapping rules.</p>
+                                <div class="alert alert-info">
+                                    <strong>Note:</strong> This process may take some time depending on the number of entries to convert.
+                                </div>
+                            </page>
+<!--                            <page string="Advanced Options">-->
+<!--                                <group>-->
+<!--&lt;!&ndash;                                    <field name="force_reconversion"/>&ndash;&gt;-->
+<!--                                    <field name="send_notification"/>-->
+<!--                                    <field name="create_backup"/>-->
+<!--                                </group>-->
+<!--                            </page>-->
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Conversion Result Form -->
+<!--        <record id="view_vas_ifrs_conversion_result_form" model="ir.ui.view">-->
+<!--            <field name="name">vas.ifrs.conversion.result.form</field>-->
+<!--            <field name="model">vas.ifrs.conversion.result</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form>-->
+<!--                    <header>-->
+<!--                        <button string="View IFRS Entries" name="action_view_ifrs_entries" type="object" class="btn-primary"/>-->
+<!--                        <button string="Download Error Report" name="action_download_error_report" type="object" class="btn-secondary"/>-->
+<!--                        <button string="Close" class="btn-default" special="cancel"/>-->
+<!--                    </header>-->
+<!--                    <sheet>-->
+<!--                        <div class="oe_title">-->
+<!--                            <h1>Conversion Results</h1>-->
+<!--                        </div>-->
+<!--                        <group>-->
+<!--                            <group string="Summary">-->
+<!--                                <field name="converted_count"/>-->
+<!--                                <field name="error_count"/>-->
+<!--                                <field name="total_processed"/>-->
+<!--                                <field name="success_rate" widget="percentage"/>-->
+<!--                            </group>-->
+<!--                            <group string="Timing">-->
+<!--                                <field name="start_time"/>-->
+<!--                                <field name="end_time"/>-->
+<!--                                <field name="duration"/>-->
+<!--                            </group>-->
+<!--                        </group>-->
+<!--                        <notebook>-->
+<!--                            <page string="Errors" attrs="{'invisible': [('error_count', '=', 0)]}">-->
+<!--                                <field name="error_messages" nolabel="1"/>-->
+<!--                            </page>-->
+<!--                            <page string="Details">-->
+<!--                                <field name="conversion_details" nolabel="1">-->
+<!--                                    <tree>-->
+<!--                                        <field name="vas_move_name"/>-->
+<!--                                        <field name="ifrs_move_name"/>-->
+<!--                                        <field name="status"/>-->
+<!--                                        <field name="conversion_time"/>-->
+<!--                                    </tree>-->
+<!--                                </field>-->
+<!--                            </page>-->
+<!--                        </notebook>-->
+<!--                    </sheet>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <!-- Batch Conversion Wizard Action -->
+        <record id="action_vas_ifrs_conversion_wizard" model="ir.actions.act_window">
+            <field name="name">Batch VAS to IFRS Conversion</field>
+            <field name="res_model">vas.ifrs.conversion.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

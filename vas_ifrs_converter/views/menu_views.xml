@@ -1,0 +1,69 @@
+<odoo>
+    <data>
+        <!-- Main Menu -->
+        <menuitem id="menu_vas_ifrs_main"
+                  name="VAS-IFRS"
+                  parent="account.menu_finance"
+                  sequence="50"/>
+
+        <!-- Configuration Menu -->
+        <menuitem id="menu_vas_ifrs_config"
+                  name="Configuration"
+                  parent="menu_vas_ifrs_main"
+                  sequence="10"/>
+
+        <menuitem id="menu_vas_ifrs_mapping"
+                  name="Account Mapping"
+                  parent="menu_vas_ifrs_config"
+                  action="action_vas_ifrs_mapping"
+                  sequence="10"/>
+
+        <!-- Processing Menu -->
+        <menuitem id="menu_vas_ifrs_processing"
+                  name="Processing"
+                  parent="menu_vas_ifrs_main"
+                  sequence="20"/>
+
+        <menuitem id="menu_vas_ifrs_batch_conversion"
+                  name="Batch Conversion"
+                  parent="menu_vas_ifrs_processing"
+                  action="action_vas_ifrs_conversion_wizard"
+                  sequence="10"/>
+
+        <menuitem id="menu_vas_pending_conversion"
+                  name="Pending Conversion"
+                  parent="menu_vas_ifrs_processing"
+                  action="action_account_move_vas_pending"
+                  sequence="20"/>
+
+        <!-- Reports Menu -->
+        <menuitem id="menu_vas_ifrs_reports"
+                  name="IFRS Reports"
+                  parent="menu_vas_ifrs_main"
+                  sequence="30"/>
+
+        <menuitem id="menu_ifrs_entries"
+                  name="IFRS Journal Entries"
+                  parent="menu_vas_ifrs_reports"
+                  action="action_account_move_ifrs"
+                  sequence="10"/>
+
+<!--        <menuitem id="menu_ifrs_balance_sheet"-->
+<!--                  name="IFRS Balance Sheet"-->
+<!--                  parent="menu_vas_ifrs_reports"-->
+<!--                  action="action_ifrs_balance_sheet_report"-->
+<!--                  sequence="20"/>-->
+
+<!--        <menuitem id="menu_ifrs_income_statement"-->
+<!--                  name="IFRS Income Statement"-->
+<!--                  parent="menu_vas_ifrs_reports"-->
+<!--                  action="action_ifrs_income_statement_report"-->
+<!--                  sequence="30"/>-->
+
+<!--        <menuitem id="menu_ifrs_dashboard"-->
+<!--                  name="Conversion Dashboard"-->
+<!--                  parent="menu_vas_ifrs_reports"-->
+<!--                  action="action_ifrs_conversion_dashboard"-->
+<!--                  sequence="40"/>-->
+    </data>
+</odoo>

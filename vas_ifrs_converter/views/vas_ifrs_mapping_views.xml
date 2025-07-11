@@ -1,0 +1,110 @@
+<odoo>
+    <data>
+        <!-- VAS IFRS Mapping Tree View -->
+        <record id="view_vas_ifrs_mapping_tree" model="ir.ui.view">
+            <field name="name">vas.ifrs.mapping.tree</field>
+            <field name="model">vas.ifrs.mapping</field>
+            <field name="arch" type="xml">
+                <list decoration-muted="not active" decoration-info="conversion_type=='direct'" decoration-warning="conversion_type=='split'">
+                    <field name="name"/>
+                    <field name="vas_account_code"/>
+                    <field name="vas_account_id"/>
+                    <field name="ifrs_account_code"/>
+                    <field name="ifrs_account_id"/>
+                    <field name="conversion_type"/>
+                    <field name="conversion_factor"/>
+                    <field name="auto_convert"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- VAS IFRS Mapping Form View -->
+        <record id="view_vas_ifrs_mapping_form" model="ir.ui.view">
+            <field name="name">vas.ifrs.mapping.form</field>
+            <field name="model">vas.ifrs.mapping</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Mapping Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="VAS Account">
+                                <field name="vas_account_id" />
+                                <field name="vas_account_code"/>
+                            </group>
+                            <group string="IFRS Account">
+                                <field name="ifrs_account_id" />
+                                <field name="ifrs_account_code"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Conversion Settings">
+                                <field name="conversion_type"/>
+                                <field name="conversion_factor" invisible="conversion_type not in ('direct', 'calculate')"/>
+                                <field name="split_percentage" invisible="conversion_type != 'split'"/>
+                                <field name="auto_convert"/>
+                            </group>
+                            <group string="Validity Period">
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Notes">
+                                <field name="notes" placeholder="Additional conversion notes and business rules..."/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- VAS IFRS Mapping Search View -->
+        <record id="view_vas_ifrs_mapping_search" model="ir.ui.view">
+            <field name="name">vas.ifrs.mapping.search</field>
+            <field name="model">vas.ifrs.mapping</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="vas_account_id"/>
+                    <field name="ifrs_account_id"/>
+                    <field name="vas_account_code"/>
+                    <field name="ifrs_account_code"/>
+                    <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                    <filter name="inactive" string="Inactive" domain="[('active', '=', False)]"/>
+                    <filter name="auto_convert" string="Auto Convert" domain="[('auto_convert', '=', True)]"/>
+                    <separator/>
+                    <filter name="direct" string="Direct Mapping" domain="[('conversion_type', '=', 'direct')]"/>
+                    <filter name="split" string="Split Mapping" domain="[('conversion_type', '=', 'split')]"/>
+                    <filter name="merge" string="Merge Mapping" domain="[('conversion_type', '=', 'merge')]"/>
+                    <filter name="calculate" string="Calculated Mapping" domain="[('conversion_type', '=', 'calculate')]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_conversion_type" string="Conversion Type" domain="[]" context="{'group_by': 'conversion_type'}"/>
+                        <filter name="group_vas_account" string="VAS Account" domain="[]" context="{'group_by': 'vas_account_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- VAS IFRS Mapping Action -->
+        <record id="action_vas_ifrs_mapping" model="ir.actions.act_window">
+            <field name="name">VAS to IFRS Mapping</field>
+            <field name="res_model">vas.ifrs.mapping</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_vas_ifrs_mapping_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first VAS to IFRS mapping
+                </p>
+                <p>
+                    Configure how Vietnamese Accounting Standards (VAS) accounts
+                    should be converted to International Financial Reporting Standards (IFRS).
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
